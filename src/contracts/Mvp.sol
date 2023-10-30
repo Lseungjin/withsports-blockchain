@@ -1,8 +1,8 @@
 //위스토큰
 pragma solidity ^0.5.0;
 
-contract Ws{
-   string public name = 'Ws Token';
+contract Mvp{
+   string public name = 'Mvp Token';
    string public symbol = 'mUSDT';
    uint256 public totalSupply = 100000000000000000000000000; //token 10000개
    uint8 public decimals = 18;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ws from '../Ws.png'
+import mvp from '../Ws.png'
 
 
 
@@ -34,7 +34,7 @@ class Main extends Component{
                     <div style={{borderSpacing:'0 1em'}}>
                         <label className='float-left' style={{marginLeft:'15px'}}><b>보낼 토큰</b></label>
                         <span className='float-right' style={{marginRight:'8px'}}>
-                        Balance: {window.web3.utils.fromWei(this.props.wsBalance, 'Ether')}
+                        Balance: {window.web3.utils.fromWei(this.props.mvpBalance, 'Ether')}
                         </span>
                         <div className='input-group mb-4'>
                             <input
@@ -44,7 +44,7 @@ class Main extends Component{
                             required/>
                             <div className='input-group-open'>
                                 <div className='input-group-text'>
-                                    <img src={ws} alt='ws' height='32'/>
+                                    <img src={mvp} alt='mvp' height='32'/>
                                     &nbsp;&nbsp;&nbsp; USDT
                                 </div>
                             </div>

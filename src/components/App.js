@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Web3 from 'web3';
-import Ws from '../truffle_abis/Ws.json'
+import Mvp from '../truffle_abis/Mvp.json'
 import RWD from '../truffle_abis/RWD.json'
 import Admin from '../truffle_abis/Admin.json'
 import Main from './Main.js'
@@ -32,17 +32,17 @@ class App extends Component{
         console.log(account) //정상적으로 불러오는지 확인용
         console.log(networkId, 'network Id') //정상적으로 불러오는지 확인용
 
-        //Load Ws Contract
+        //Load Mvp Contract
         
-        const wsData = Ws.networks[networkId]
-        if(wsData){
-            const ws = new web3.eth.Contract(Ws.abi, wsData.address)
-            this.setState({ws})
-            let wsBalance = await ws.methods.balanceOf(this.state.account).call()
-            this.setState({wsBalance: wsBalance.toString() })
-            console.log({balance: wsBalance})
+        const mvpData = Mvp.networks[networkId]
+        if(mvpData){
+            const mvp = new web3.eth.Contract(Mvp.abi, mvpData.address)
+            this.setState({mvp})
+            let mvpBalance = await mvp.methods.balanceOf(this.state.account).call()
+            this.setState({mvpBalance: mvpBalance.toString() })
+            console.log({balance: mvpBalance})
         }else{
-            window.alert('Error! ws contract not deployed - no detect network!')
+            window.alert('Error! mvp contract not deployed - no detect network!')
         }
         
         //Load RWD Contract
@@ -75,7 +75,7 @@ class App extends Component{
     //staking function
     stakeTokens = (amount) => {
         this.setState({loading: true })
-        this.state.ws.methods.approve(this.state.admin._address, amount).send({from: this.state.account}).on('transactionHash', (hash) => {
+        this.state.mvp.methods.approve(this.state.admin._address, amount).send({from: this.state.account}).on('transactionHash', (hash) => {
           this.state.admin.methods.depositTokens(amount).send({from: this.state.account}).on('transactionHash', (hash) => {
             this.setState({loading:false})
           })
@@ -94,10 +94,10 @@ class App extends Component{
         super(props)
         this.state ={
             account: '0x0',
-            ws: {},
+            mvp: {},
             rwd: {},
             admin: {},
-            wsBalance: '0',
+            mvpBalance: '0',
             rwdBalance: '0',
             stakingBalance: '0',
             loading: true
@@ -111,7 +111,7 @@ class App extends Component{
         <p id='loader' className='text-center' style={{margin:'30px', color:'white'}}>
         Loding PLEASE...</p>: content = 
         <Main
-            wsBalance={this.state.wsBalance}
+            mvpBalance={this.state.mvpBalance}
             rwdBalance={this.state.rwdBalance}
             stakingBalance={this.state.stakingBalance}
             stakeTokens={this.stakeTokens}

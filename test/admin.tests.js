@@ -1,5 +1,5 @@
 
-const Ws = artifacts.require('Ws');
+const Mvp = artifacts.require('Mvp');
 const RWD = artifacts.require('RWD');
 const Admin = artifacts.require('Admin');
 
@@ -8,27 +8,27 @@ require('chai')
 .should() 
 
 contract('Admin',([owner, user]) =>{
-    let ws, rwd, admin
+    let mvp, rwd, admin
 
     function tokens(number){
         return web3.utils.toWei(number, 'ether')
     }
     before(async () => {
         //계약 가져오기
-        ws = await Ws.new()
+        mvp = await Mvp.new()
         rwd = await RWD.new()
-        admin = await Admin.new(rwd.address, ws.address)
+        admin = await Admin.new(rwd.address, mvp.address)
 
         //"rwd" 토큰을 "admin.address"로 100만 개 전송
         await rwd.transfer(admin.address, tokens('1000000'))
 
-        // "ws" 토큰을 "owner"에서 "user"로 1만 개 전송
-        await ws.transfer(user, tokens('10000'), {from: owner})
+        // "mvp" 토큰을 "owner"에서 "user"로 1만 개 전송
+        await mvp.transfer(user, tokens('10000'), {from: owner})
     })
-    describe('Ws Token Deployment', async () =>{
+    describe('Mvp Token Deployment', async () =>{
         it('matches name succesfully', async () => {
-            const name = await ws.name()
-            assert.equal(name, 'Ws Token' )
+            const name = await mvp.name()
+            assert.equal(name, 'Mvp Token' )
         })
     })
     describe('Reward Token Deployment', async () =>{
@@ -52,17 +52,17 @@ contract('Admin',([owner, user]) =>{
             it('reward tokens for staking', async() =>{
                 let result
                 //check investor balance 
-                result = await ws.balanceOf(user) 
+                result = await mvp.balanceOf(user) 
                 assert.equal(result.toString(), tokens('10000'), ('스테이킹 전 사용자 지갑 잔액'))
 
                 //Check staking for user of 10000 token 
-                await ws.approve(admin.address, tokens('10000'),{from: user}) 
+                await mvp.approve(admin.address, tokens('10000'),{from: user}) 
                 await admin.depositTokens(tokens('10000'), {from: user})
                 //Check Updated Balance of user 
-                result = await ws.balanceOf(user) 
+                result = await mvp.balanceOf(user) 
                 assert.equal(result.toString(), tokens('0'), ('10000개의 토큰을 스테이킹한 후 사용자 지갑 잔액'))
                 //Check Updated Balance of admin
-                result = await ws.balanceOf(admin.address)
+                result = await mvp.balanceOf(admin.address)
                 assert.equal(result.toString(), tokens('10000'), ('고객으로부터 스테이킹한 후 관리자 지갑 잔액'))
 
                 //Is Staking Update 
@@ -77,11 +77,11 @@ contract('Admin',([owner, user]) =>{
                 await admin.unstakeTokens({from:user})
 
                 //Check Unstaking Balances
-                result = await ws.balanceOf(user) 
+                result = await mvp.balanceOf(user) 
                 assert.equal(result.toString(), tokens('10000'), '언스테이킹 후 사용자 지갑 잔액')
                  
                 //Check Updated Balance of admin
-                result = await ws.balanceOf(admin.address)
+                result = await mvp.balanceOf(admin.address)
                 assert.equal(result.toString(), tokens('10000'), '사용자로부터 스테이킹한 후 관리자 지갑 잔액')
  
                 //Is Staking Update
