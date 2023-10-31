@@ -5,6 +5,7 @@ import Mvp from '../truffle_abis/Mvp.json'
 import RWD from '../truffle_abis/RWD.json'
 import Admin from '../truffle_abis/Admin.json'
 import Main from './Main.js'
+import Navbar from './Navbar.js'
 
 class App extends Component{
 
@@ -74,19 +75,32 @@ class App extends Component{
 
     //staking function
     stakeTokens = (amount) => {
+        // Check if balance is zero
+        if(this.state.mvpBalance === '0'){
+            alert('잔액이 없습니다.')
+            return;
+        }
         this.setState({loading: true })
         this.state.mvp.methods.approve(this.state.admin._address, amount).send({from: this.state.account}).on('transactionHash', (hash) => {
-          this.state.admin.methods.depositTokens(amount).send({from: this.state.account}).on('transactionHash', (hash) => {
-            this.setState({loading:false})
-          })
+        this.state.admin.methods.depositTokens(amount).send({from: this.state.account}).on('transactionHash', (hash) => {
+        // this.setState({loading:false})
+        window.location.reload(); // page reload
+            })
         }) 
     }
 
     //unstaking function
     unstakeTokens = () => {
+
+        if ( this.state.mvpBalance !== '0' || this.state.stakingBalance === '0') {
+            alert('가져올 수 없습니다.');
+            return;
+        }
+
         this.setState({loading: true })
         this.state.admin.methods.unstakeTokens().send({from: this.state.account}).on('transactionHash', (hash) => {
-          this.setState({loading:false})
+        // this.setState({loading:false})
+        window.location.reload(); // page reload
         }) 
     }
 
@@ -121,6 +135,7 @@ class App extends Component{
             <div className='App' style={{position:'relative'}}>
                 <div style={{positiona:'absoulte'}}>
                 </div>
+                <Navbar account={this.state.account}/>
                 <div className='container-fluid mt-5'>
                     <div className='row'>
                         <main role='main' className='col-lg-12 ml-auto mr-auto' style={{maxWidth:'600px', minHeight:'100vm'}}>
