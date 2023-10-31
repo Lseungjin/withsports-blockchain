@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import mvp from '../Ws.png';
+import mvp from '../Mvp.png';
 import './Main.css';
 
 class Main extends Component{
