@@ -1,0 +1,47 @@
+/* Main.css */
+.main-container {
+    padding: 20px;
+}
+
+.logo {
+    width: 200px;
+    height: auto; 
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.balance-card {
+    opacity: .9;
+    margin-top: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    gap: 20px; 
+    padding: 20px;
+}
+
+.balance-text {
+    align-self: flex-end;
+    margin-right: 8px;
+}
+
+.action-btn {
+    width: 45%;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.btn-send {
+    background-color: black; 
+    color: white; 
+    border-color : black;
+}
+
+.btn-take {
+    background-color: white; 
+    color: black; 
+    border-color : black;
+}

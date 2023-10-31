@@ -74,19 +74,32 @@ class App extends Component{
 
     //staking function
     stakeTokens = (amount) => {
+        // Check if balance is zero
+        if(this.state.mvpBalance === '0'){
+            alert('잔액이 없습니다.')
+            return;
+        }
         this.setState({loading: true })
         this.state.mvp.methods.approve(this.state.admin._address, amount).send({from: this.state.account}).on('transactionHash', (hash) => {
-          this.state.admin.methods.depositTokens(amount).send({from: this.state.account}).on('transactionHash', (hash) => {
-            this.setState({loading:false})
-          })
+        this.state.admin.methods.depositTokens(amount).send({from: this.state.account}).on('transactionHash', (hash) => {
+        // this.setState({loading:false})
+        window.location.reload(); // 페이지를 강제로 새로고침
+            })
         }) 
     }
 
     //unstaking function
     unstakeTokens = () => {
+
+        if ( this.state.mvpBalance !== '0' || this.state.stakingBalance === '0') {
+            alert('가져올 수 없습니다.');
+            return;
+        }
+
         this.setState({loading: true })
         this.state.admin.methods.unstakeTokens().send({from: this.state.account}).on('transactionHash', (hash) => {
-          this.setState({loading:false})
+        // this.setState({loading:false})
+        window.location.reload(); // 페이지를 강제로 새로고침
         }) 
     }
 
