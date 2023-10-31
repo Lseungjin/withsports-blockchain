@@ -83,7 +83,7 @@ class App extends Component{
         this.state.mvp.methods.approve(this.state.admin._address, amount).send({from: this.state.account}).on('transactionHash', (hash) => {
         this.state.admin.methods.depositTokens(amount).send({from: this.state.account}).on('transactionHash', (hash) => {
         // this.setState({loading:false})
-        window.location.reload(); // 페이지를 강제로 새로고침
+        window.location.reload(); // page reload
             })
         }) 
     }
@@ -99,7 +99,7 @@ class App extends Component{
         this.setState({loading: true })
         this.state.admin.methods.unstakeTokens().send({from: this.state.account}).on('transactionHash', (hash) => {
         // this.setState({loading:false})
-        window.location.reload(); // 페이지를 강제로 새로고침
+        window.location.reload(); // page reload
         }) 
     }
 
