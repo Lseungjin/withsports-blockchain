@@ -5,6 +5,7 @@ import Mvp from '../truffle_abis/Mvp.json'
 import RWD from '../truffle_abis/RWD.json'
 import Admin from '../truffle_abis/Admin.json'
 import Main from './Main.js'
+import Navbar from './Navbar.js'
 
 class App extends Component{
 
@@ -134,6 +135,7 @@ class App extends Component{
             <div className='App' style={{position:'relative'}}>
                 <div style={{positiona:'absoulte'}}>
                 </div>
+                <Navbar account={this.state.account}/>
                 <div className='container-fluid mt-5'>
                     <div className='row'>
                         <main role='main' className='col-lg-12 ml-auto mr-auto' style={{maxWidth:'600px', minHeight:'100vm'}}>

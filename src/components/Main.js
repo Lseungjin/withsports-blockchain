@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import mvp from '../Ws.png';
+=======
+import mvp from '../Mvp.png';
+>>>>>>> 4dba1e13636c5776dd7694a0d73b602c1d8fd18e
 import './Main.css';
 
 class Main extends Component{
