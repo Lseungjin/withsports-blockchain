@@ -20,7 +20,7 @@ class App extends Component{
         } else if(window.web3){
                 window.web3 = new Web3(Window.web3.currentProvider)
             } else{
-                window.alert('no ethereum browser detected! you can Check out MetaMask!')
+                window.alert('관리자님 이더리움 브라우저가 감지되지 않았습니다! MetaMask를 연결을 확인해 보세요!')
             }
         }
 
@@ -43,9 +43,15 @@ class App extends Component{
             this.setState({mvpBalance: mvpBalance.toString() })
             console.log({balance: mvpBalance})
         }else{
-            window.alert('Error! mvp contract not deployed - no detect network!')
+            window.alert('MVP 계약이 배포되지 않았습니다. - 네트워크 연결을 확인할 수 없어요.')
         }
         
+
+         // 로컬 스토리지에 저장된 횟수를 가져와 상태에 설정
+        const unstakeCount = Number(localStorage.getItem('unstakeCount') || 0);
+        this.setState({ unstakeCount });
+
+
         //Load RWD Contract
         const rwdData = RWD.networks[networkId]
         
@@ -54,9 +60,9 @@ class App extends Component{
             this.setState({rwd})
             let rwdBalance = await rwd.methods.balanceOf(this.state.account).call()
             this.setState({rwdBalance: rwdBalance.toString() })
-            //console.log({rwdbalance: rwdBalance}) 
+            console.log({rwdbalance: rwdBalance}) 
         }else{ 
-            window.alert('Error! RWD contract not deployed - no detect network!') 
+            window.alert('RWD 계약이 배포되지 않았습니다. - 네트워크 연결을 확인할 수 없어요.') 
         }
 
         //Load Admin Contract
@@ -75,7 +81,7 @@ class App extends Component{
 
     //staking function
     stakeTokens = (amount) => {
-        // Check if balance is zero
+        // 잔액이 0인지 확인
         if(this.state.mvpBalance === '0'){
             alert('잔액이 없습니다.')
             return;
@@ -83,15 +89,14 @@ class App extends Component{
         this.setState({loading: true })
         this.state.mvp.methods.approve(this.state.admin._address, amount).send({from: this.state.account}).on('transactionHash', (hash) => {
         this.state.admin.methods.depositTokens(amount).send({from: this.state.account}).on('transactionHash', (hash) => {
-        // this.setState({loading:false})
         window.location.reload(); // page reload
             })
-        }) 
+        })
+        
     }
 
     //unstaking function
     unstakeTokens = () => {
-
         if ( this.state.mvpBalance !== '0' || this.state.stakingBalance === '0') {
             alert('가져올 수 없습니다.');
             return;
@@ -99,22 +104,38 @@ class App extends Component{
 
         this.setState({loading: true })
         this.state.admin.methods.unstakeTokens().send({from: this.state.account}).on('transactionHash', (hash) => {
-        // this.setState({loading:false})
+        // 로컬 스토리지에 저장된 횟수를 가져와서 1 증가시킨 후 다시 저장
+        const unstakeCount = Number(localStorage.getItem('unstakeCount') || 0) + 1;
+        localStorage.setItem('unstakeCount', unstakeCount.toString());
         window.location.reload(); // page reload
-        }) 
+    })
+        
+
+
     }
+    //issueTokens function
+    issueTokens = () => {
+        this.setState({ loading: true });
+        this.state.admin.methods.issueTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
+            // this.setState({ loading: false });
+            window.location.reload(); // page reload
+        })
+    }
+    
+    
 
     constructor(props){
         super(props)
         this.state ={
             account: '0x0',
             mvp: {},
-            rwd: {},
+            //rwd: {},
             admin: {},
             mvpBalance: '0',
             rwdBalance: '0',
             stakingBalance: '0',
-            loading: true
+            loading: true,
+            unstakeCount: 0
         }
     }
 
@@ -126,10 +147,12 @@ class App extends Component{
         Loding PLEASE...</p>: content = 
         <Main
             mvpBalance={this.state.mvpBalance}
-            rwdBalance={this.state.rwdBalance}
+            //rwdBalance={this.state.rwdBalance}
             stakingBalance={this.state.stakingBalance}
             stakeTokens={this.stakeTokens}
             unstakeTokens={this.unstakeTokens}
+            issueTokens={this.issueTokens}
+            unstakeCount={this.state.unstakeCount}
         />}
         return (
             <div className='App' style={{position:'relative'}}>
