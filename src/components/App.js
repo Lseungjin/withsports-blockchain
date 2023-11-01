@@ -46,8 +46,8 @@ class App extends Component{
             window.alert('MVP 계약이 배포되지 않았습니다. - 네트워크 연결을 확인할 수 없어요.')
         }
         
-
-         // 로컬 스토리지에 저장된 횟수를 가져와 상태에 설정
+        // TODO : 수정 필요
+        // 로컬 스토리지에 저장된 횟수를 가져와 상태에 설정
         const unstakeCount = Number(localStorage.getItem('unstakeCount') || 0);
         this.setState({ unstakeCount });
 
@@ -104,6 +104,7 @@ class App extends Component{
 
         this.setState({loading: true })
         this.state.admin.methods.unstakeTokens().send({from: this.state.account}).on('transactionHash', (hash) => {
+        // TODO: 수정 필요 
         // 로컬 스토리지에 저장된 횟수를 가져와서 1 증가시킨 후 다시 저장
         const unstakeCount = Number(localStorage.getItem('unstakeCount') || 0) + 1;
         localStorage.setItem('unstakeCount', unstakeCount.toString());
@@ -135,6 +136,7 @@ class App extends Component{
             rwdBalance: '0',
             stakingBalance: '0',
             loading: true,
+            // TODO:  수정 필요
             unstakeCount: 0
         }
     }
@@ -152,6 +154,7 @@ class App extends Component{
             stakeTokens={this.stakeTokens}
             unstakeTokens={this.unstakeTokens}
             issueTokens={this.issueTokens}
+            // TODO : 수정 필요
             unstakeCount={this.state.unstakeCount}
         />}
         return (

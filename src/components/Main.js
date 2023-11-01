@@ -17,7 +17,7 @@ class Main extends Component{
                     <tbody>
                         <tr style={{color:'black'}}>
                             <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} USDT</td>
-                            {/* replace count function */}
+                            {/* replace count function ... 수정 필요 */}
                             <td>{this.props.unstakeCount} 회</td>
                             {/*<td>{window.web3.utils.fromWei(this.props.rwdBalance, 'Ether')} RWD</td>*/}
                         </tr>
@@ -32,7 +32,7 @@ class Main extends Component{
                             onClick={(event) =>{
                                 event.preventDefault()
                                 let amount
-                                amount = window.web3.utils.toWei('10000', 'Ether')
+                                amount = window.web3.utils.toWei('1', 'Ether')
                                 this.props.stakeTokens(amount)
                             }}
                             className='btn btn-send action-btn'>전송</button>
