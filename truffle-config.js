@@ -26,8 +26,8 @@ module.exports = {
 /*require('babel-register');
 require('babel-polyfill');
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-const mnemonic = "theory reject soda wealth frequent test solve ceiling april infant table liberty";
-const infura_sepolia_endpoint = "https://sepolia.infura.io/v3/3f5de63cfb0f494282293b204bb18f61";
+const mnemonic = "";
+const infura_sepolia_endpoint = "https://sepolia.infura.io/v3/";
 module.exports = {
   networks: {
     sepolia: {
