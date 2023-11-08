@@ -10,19 +10,21 @@ class Main extends Component{
                 <table className = 'table text-muted text-center'>
                     <thead>
                         <tr style={{color:'black'}}>
-                            <th scope='col'>보낸 토큰</th>
-                            <th scope='col'>Reward 토큰</th>
+                            <th scope='col'>사용자 총 투표 횟수</th>
+                            <th scope='col'>투표 종료 횟수 </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style={{color:'black'}}>
                             <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} USDT</td>
-                            <td>{window.web3.utils.fromWei(this.props.rwdBalance, 'Ether')} RWD</td>
+                            {/* replace count function ... 수정 필요 */}
+                            <td>{this.props.unstakeCount} 회</td>
+                            {/*<td>{window.web3.utils.fromWei(this.props.rwdBalance, 'Ether')} RWD</td>*/}
                         </tr>
                     </tbody>
                 </table>
                     <span className='balance-text'>
-                        Balance: {window.web3.utils.fromWei(this.props.mvpBalance, 'Ether')}
+                        투표 종료까지 남은 투표수: {window.web3.utils.fromWei(this.props.mvpBalance, 'Ether')}
                     </span>
                 <div>
                     <div className='button-container'>
@@ -33,14 +35,15 @@ class Main extends Component{
                                 amount = window.web3.utils.toWei('1', 'Ether')
                                 this.props.stakeTokens(amount)
                             }}
-                            className='btn btn-send action-btn'>전송</button>
+                            className='btn btn-send action-btn'>사용자 총 투표 횟수 증가시키기</button>
                         <button 
                             onClick={(event) =>{
                                 event.preventDefault(
-                                    this.props.unstakeTokens() 
+                                    this.props.unstakeTokens()
+                                    //this.props.issueTokens()
                                 )
                             }}
-                            className='btn btn-take action-btn'>가져오기</button>
+                            className='btn btn-take action-btn'>투표 종료 횟수 증가시키기</button>
                     </div>
                 </div>
             </div>

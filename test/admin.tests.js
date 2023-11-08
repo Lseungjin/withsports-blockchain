@@ -87,7 +87,23 @@ contract('Admin',([owner, user]) =>{
                 //Is Staking Update
                 result = await admin.isStaking(user)
                 assert.equal(result.toString(), 'false', '사용자는 언스테이킹 이후 스테이킹 하지 않는다.')
- 
+
+                //rwd token
+                result = await rwd.balanceOf(user) 
+                const initialRewardBalance = result.toString()
+                console.log(`Initial Reward Balance: ${initialRewardBalance}`)
+          
+                // 토큰 발행
+                await admin.issueTokens({from: owner})
+          
+                // 스테이킹 후 사용자의 보상 토큰 잔액 확인
+                result = await rwd.balanceOf(user)
+                const finalRewardBalance = result.toString()
+                console.log(`Final Reward Balance: ${finalRewardBalance}`)
+          
+                // 보상 비율 확인
+                const rewardRatio = finalRewardBalance / tokens('10000')
+                console.log(`Reward Ratio: ${rewardRatio}`)
             }) 
         })
     })

@@ -9,7 +9,7 @@ class Navbar extends Component{
             }}>
             <a className='navbar-brand col-sm-3 col-md-2 mr-0'
             style={{color : 'white'}}>
-            &nbsp; WithSports (Decentralized AdminPage)
+            &nbsp; WithSports (Decentralized)
             </a>
             <ul className='navbar-nav px-3'>
                 <li className='text-nowrap d-none nav-item d-sm-none d-sm-block'>
