@@ -20,7 +20,7 @@ class Main extends Component{
                     </thead>
                     <tbody>
                         <tr style={{color:'black'}}>
-                            <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} USDT</td>
+                            <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} 회</td>
                             {/* replace count function ... 수정 필요 */}
                             <td>{this.props.unstakeCount} 회</td>
                             {/*<td>{window.web3.utils.fromWei(this.props.rwdBalance, 'Ether')} RWD</td>*/}
