@@ -9,15 +9,14 @@ class Main extends Component{
                 <img src={mvp} alt="Logo" className="logo" />
                 <table className = 'table text-muted text-center'>
                     <thead>
+
                         <tr style={{color:'black'}}>
-<<<<<<< HEAD
+                        
                             <th scope='col'>사용자 총 투표 횟수</th>
                             <th scope='col'>투표 종료 횟수 </th>
-=======
-                            <th scope='col'>MVP 토큰</th>
-                            <th scope='col'>초기화 횟수</th>
->>>>>>> d88427921c509080ef66fd3b6c422b1eb12db1e7
+
                         </tr>
+
                     </thead>
                     <tbody>
                         <tr style={{color:'black'}}>
@@ -29,11 +28,7 @@ class Main extends Component{
                     </tbody>
                 </table>
                     <span className='balance-text'>
-<<<<<<< HEAD
                         투표 종료까지 남은 투표수: {window.web3.utils.fromWei(this.props.mvpBalance, 'Ether')}
-=======
-                        관리자 지갑 MVP토큰 개수: {window.web3.utils.fromWei(this.props.mvpBalance, 'Ether')}
->>>>>>> d88427921c509080ef66fd3b6c422b1eb12db1e7
                     </span>
                 <div>
                     <div className='button-container'>

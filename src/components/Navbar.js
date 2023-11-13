@@ -7,9 +7,9 @@ class Navbar extends Component{
                 background : 'black',
                 height : '50px'
             }}>
-            <a className='navbar-brand col-sm-3 col-md-2 mr-0'
+            <a href="/" className='navbar-brand col-sm-3 col-md-2 mr-0'
             style={{color : 'white'}}>
-            &nbsp; WithSports (Decentralized)
+            &nbsp; TokenSystem (Decentralized)
             </a>
             <ul className='navbar-nav px-3'>
                 <li className='text-nowrap d-none nav-item d-sm-none d-sm-block'>
